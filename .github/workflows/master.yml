@@ -1,0 +1,44 @@
+name: master
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        
+      - name: cache node_modules
+        id: node-cache
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: node_modules
+          key: ${{runner.os}}-node-modules-${{hashFiles('**/package-lock.json')}}
+          restore-keys: |
+             ${{ runner.os }}-build-${{ env.cache-name }}-
+             ${{ runner.os }}-build-
+             ${{ runner.os }}-
+        
+      - name: npm install
+        if: steps.node-cache.outputs.cache-hit != 'true'
+        run: npm i
+      
+      - name: build
+        run: npm run build
+        
+      - name: deploy
+        uses: burnett01/rsync-deployments@5.2
+        with:
+          switches: -avzr --delete
+          path: ./*
+          remote_path: /home/ubuntu/test/
+          remote_host: 3.37.155.46
+          remote_user: ubuntu
+          remote_key: "${{secrets.SSH_PRIVATE_KEY}}"
