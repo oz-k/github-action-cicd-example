@@ -34,7 +34,7 @@ jobs:
       - name: deploy
         uses: burnett01/rsync-deployments@5.2
         with:
-          switches: -avzr --delete /
+          switches: -avzr --delete .
           path: ./*
           remote_path: /home/ubuntu/test/
           remote_host: 3.37.155.46
