@@ -1,0 +1,24 @@
+{
+  "name": "github-action-cicd-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "touch $(date '+%Y_%m_%d_%T')"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oz-k/github-action-cicd-example.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oz-k/github-action-cicd-example/issues"
+  },
+  "homepage": "https://github.com/oz-k/github-action-cicd-example#readme",
+  "dependencies": {
+    "@nestjs/common": "^8.4.0",
+    "@nestjs/graphql": "^10.0.6"
+  }
+}
